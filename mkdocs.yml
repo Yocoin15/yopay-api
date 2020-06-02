@@ -1,0 +1,5 @@
+site_name: yopay.tech
+nav:
+  - Introduction: index.md
+  - Documentation: documentation.md
+theme: readthedocs

@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Documentation - yopay.tech</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Documentation";
+    var mkdocs_page_input_path = "documentation.md";
+    var mkdocs_page_url = null;
+  </script>
+
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> yopay.tech</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+
+
+            <li class="toctree-l1">
+
+    <a class="" href="..">Introduction</a>
+	    </li>
+
+            <li class="toctree-l1 current">
+
+    <a class="current" href="./">Documentation</a>
+    <ul class="subnav">
+
+    <li class="toctree-l2"><a href="#api-overview">Api Overview</a></li>
+
+        <ul>
+
+            <li><a class="toctree-l3" href="#api-keys">API Keys</a></li>
+
+            <li><a class="toctree-l3" href="#multiple-currencies">Multiple Currencies</a></li>
+
+            <li><a class="toctree-l3" href="#get-a-list-of-enabled-currencies">Get a list of enabled currencies.</a></li>
+
+            <li><a class="toctree-l3" href="#create-payment-request">Create payment request</a></li>
+
+            <li><a class="toctree-l3" href="#get-invoice-info-and-status">Get Invoice Info and Status</a></li>
+
+            <li><a class="toctree-l3" href="#get-currencies-exchange-rates">Get Currencies exchange rates</a></li>
+
+            <li><a class="toctree-l3" href="#retrieve-wallet-balance">Retrieve wallet balance</a></li>
+
+            <li><a class="toctree-l3" href="#request-withdrawal-to-cold-wallet">Request withdrawal to cold wallet</a></li>
+
+            <li><a class="toctree-l3" href="#retrieve-withdrawal-details">Retrieve withdrawal details</a></li>
+
+        </ul>
+
+
+    </ul>
+	    </li>
+
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">yopay.tech</a>
+      </nav>
+
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+
+
+
+    <li>Documentation</li>
+    <li class="wy-breadcrumbs-aside">
+
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+
+                <h1 id="api-overview">Api Overview</h1>
+<p><strong>This API allows to accept <b>cryptocurencies</b> payments. More details can be found on our website: https://yopay.tech</strong></p>
+<h4 id="api-keys">API Keys</h4>
+<p>In order to use the system you need an API key. Getting a key is free and easy, sign up here:
+https://yopay.tech</p>
+<h4 id="multiple-currencies">Multiple Currencies</h4>
+<p>Once registered, you can manage the currencies you want to integrate in the Membership area / Currencies.
+Please enable the currencies there before using this API.</p>
+<h3 id="get-a-list-of-enabled-currencies">Get a list of enabled currencies.</h3>
+<p><img alt="label: GET" src="https://img.shields.io/badge/-GET-success.svg" /> <em>/currencies/?token={token}</em></p>
+<p><strong>Example:</strong> https://api.yopay.tech/currencies/?token=WKt2skCsqns6666666666CJv0m4DUkX</p>
+<p><strong>Headers:</strong> Content-Type: application/json</p>
+<p><strong>Parameters:</strong>
+ - token - API Secret Key</p>
+<p><strong>Response body:</strong></p>
+<pre><code class="json">{
+   &quot;success&quot;: true,
+   &quot;data&quot;: [
+       &quot;eth&quot;,
+       &quot;eth&quot;
+   ]
+}
+</code></pre>
+
+<h3 id="create-payment-request">Create payment request</h3>
+<p><img alt="label: GET" src="https://img.shields.io/badge/-GET-success.svg" />  <em>/{crypto}/payment/?token={token}</em></p>
+<p><img alt="label: GET" src="https://img.shields.io/badge/-GET-success.svg" />  <em>/{crypto}/payment/?callback={callback_url}&amp;token={token}</em></p>
+<p><strong>Examples:</strong></p>
+<p>Without callback: </p>
+<p>https://api.yopay.tech/eth/payment/?token=WKt2skCsqns6666666666CJv0m4DUkX</p>
+<p>With callback: </p>
+<p>https://api.yopay.tech/eth/payment/?token=WKt2skCsqns6666666666CJv0m4DUkX&amp;callback=https://example.com/cb.php</p>
+<p><strong>Headers:</strong> Content-Type: application/json</p>
+<p><strong>Parameters:</strong>
+ - token - API Secret Key
+ - crypto - Crypto currency to accept</p>
+<p><strong>Optional parameters:</strong>
+ - callback_url - Your server callback url (urlencoded) to get information about payment</p>
+<p><strong>Response body:</strong></p>
+<p><em>The API always responds with a JSON string. [data] collection contains the important values:</em>
+ - <em>[address] is the payment address to show to the customer</em>
+ - <em>[invoice] is our inner payment identifier, keep it in a safe place and never disclose to your clients.</em></p>
+<pre><code class="json">{
+    &quot;success&quot;: true,
+    &quot;data&quot;: {
+        &quot;invoice&quot;: &quot;d1ddf6e3767030b06666666eae403600&quot;,
+        &quot;address&quot;: &quot;0xf75574f061cd66666666666666666666666666f2&quot;
+    }
+}
+</code></pre>
+
+<p><strong>Callback example:</strong></p>
+<p><em>A callback is sent every time a new block is mined. It stops when transaction get maxConfirmations confirmations. See code sample below.</em></p>
+<pre><code class="json">{
+    &quot;transaction_amount&quot;: 2000000000000000000,
+    &quot;transaction_hash&quot;: &quot;0xfd4609159efea3804335e4a2666666666666666666666bb07869cc8b5536827c&quot;,
+    &quot;block_hash&quot;: &quot;0xd5800a894ac462cd3338f24068a6666666666666666666664a58fed4b9e15e8f&quot;,
+    &quot;block_number&quot;: 140,
+    &quot;address&quot;: &quot;0xf75574f061cd66666666666666666666666666f2&quot;,
+    &quot;callback&quot;: &quot;http://example.com/cb.php&quot;,
+    &quot;blockchain&quot;: &quot;eth&quot;,
+    &quot;status&quot;: &quot;complete&quot;,
+    &quot;confirmations&quot;: 13,
+    &quot;invoice&quot;: &quot;d1ddf6e3767030b06666666eae403600&quot;,
+    &quot;maxConfirmations&quot;: 4
+}
+</code></pre>
+
+<p><strong>PHP callback cb.php example:</strong></p>
+<pre><code class="php">$orderId = $_GET['orderId'];
+$data = file_get_contents('php://input');
+if ($data) {
+    $params = json_decode($data, true);
+    $invoice = $params['invoice'];
+
+    //save number of confirmations to DB: $params['confirmations']
+
+    if ($params['confirmations'] &gt;= $params['maxConfirmations']) {
+        $amountPaid = $params['transaction_amount'];
+        // check is order not already marked as paid
+        // compare $amountPaid with order total
+        // compare $invoice with one saved in the database to ensure callback is legitimate
+        // do other required checks
+        // mark the order as paid
+        die('ok'); //stop further callbacks
+    } else {
+        die(&quot;waiting for confirmations&quot;);
+    }
+}
+</code></pre>
+
+<h3 id="get-invoice-info-and-status">Get Invoice Info and Status</h3>
+<p><img alt="label: GET" src="https://img.shields.io/badge/-GET-success.svg" />  <em>/invoice/{invoice}/?token={token}</em></p>
+<p>Obtain information about invoice which already stop sent callback requests</p>
+<p><strong>Example:</strong> https://api.yopay.tech/invoice/d1ddf6e3767030b06666666eae403600/?token=WKt2skCsqns6666666666CJv0m4DUkX </p>
+<p><strong>Headers:</strong> Content-Type: application/json</p>
+<p><strong>Parameters:</strong>
+ - token - API Secret Key
+ - invoice - Invoice ID from Create payment request</p>
+<p><strong>Response body:</strong></p>
+<p><em>The API returns a JSON string containing the information about invoice that same as data sent to callback url.</em></p>
+<pre><code class="json">{
+    &quot;transaction_amount&quot;: 2000000000000000000,
+    &quot;transaction_hash&quot;: &quot;0xfd4609159efea3804335e4a2666666666666666666666bb07869cc8b5536827c&quot;,
+    &quot;block_hash&quot;: &quot;0xd5800a894ac462cd3338f24068a6666666666666666666664a58fed4b9e15e8f&quot;,
+    &quot;block_number&quot;: 140,
+    &quot;address&quot;: &quot;0xf75574f061cd66666666666666666666666666f2&quot;,
+    &quot;callback&quot;: &quot;http://example.com/cb.php&quot;,
+    &quot;blockchain&quot;: &quot;eth&quot;,
+    &quot;status&quot;: &quot;complete&quot;,
+    &quot;confirmations&quot;: 13,
+    &quot;invoice&quot;: &quot;d1ddf6e3767030b06666666eae403600&quot;,
+    &quot;maxConfirmations&quot;: 4
+}
+</code></pre>
+
+<h3 id="get-currencies-exchange-rates">Get Currencies exchange rates</h3>
+<p><img alt="label: GET" src="https://img.shields.io/badge/-GET-success.svg" />  <em>/rates/{fiat}/?token={token}</em> </p>
+<p>Obtain information about currencies exchange rates against fiat from markets.</p>
+<p><strong>Example:</strong> https://api.yopay.tech/rates/usd/?token=WKt2skCsqns6666666666CJv0m4DUkX</p>
+<p><strong>Headers:</strong> Content-Type: application/json</p>
+<p><strong>Parameters:</strong>
+ - token - API Secret Key
+ - fiat - Comma separated fiat currencies in which you obtain rates</p>
+<p><strong>Response body:</strong></p>
+<p><em>The API returns a JSON string containing the information about selected currencies exchange rates.</em></p>
+<pre><code class="json">{
+    &quot;success&quot;: true,
+    &quot;data&quot;: {
+        &quot;USD&quot;: {
+            &quot;eth&quot;: {
+                &quot;coinmarketcap&quot;: 0.0203020243,
+                &quot;mid&quot;: 0.0203020243
+            }
+        },
+        &quot;EUR&quot;: {
+            &quot;eth&quot;: {
+                &quot;coinmarketcap&quot;: 1.4806298998,
+                &quot;mid&quot;: 1.4806298998
+            }
+        }
+    }
+}
+</code></pre>
+
+<h4 id="what-to-use-as-a-payout-address">What to use as a payout address?</h4>
+<p>You will need payout addresses for all crypto currencies you want to accept. Only you will have access to your payout wallets.
+You can use any online wallet, service or exchange of your choice.</p>
+<h3 id="retrieve-wallet-balance">Retrieve wallet balance</h3>
+<p><img alt="label: GET" src="https://img.shields.io/badge/-GET-success.svg" />  /{crypto}/wallet/?token={token}</p>
+<p><strong>Example:</strong> https://api.yopay.tech/eth/wallet/?token=WKt2skCsqns6666666666CJv0m4DUkX</p>
+<p><strong>Headers:</strong> Content-Type: application/json</p>
+<p><strong>Parameters:</strong>
+ - token - API Secret Key
+ - crypto - Crypto currency to accept</p>
+<p><strong>Response body:</strong></p>
+<pre><code class="json">{
+    &quot;success&quot;: true,
+    &quot;data&quot;: {
+        &quot;balance&quot;: &quot;16220000000000000&quot;,
+        &quot;wallet&quot;: {
+            &quot;user&quot;: &quot;5afe757f6666666666664d00&quot;,
+            &quot;cold_wallet&quot;: &quot;0x2b30D2903C1366666666666666666666113E27E4&quot;,
+            &quot;api_access&quot;: true,
+            &quot;max_amount&quot;: null,
+            &quot;max_confirmations&quot;: 3,
+            &quot;min_amount&quot;: null,
+            &quot;is_active&quot;: true,
+            &quot;blockchain&quot;: &quot;eth&quot;
+        }
+    }
+}
+</code></pre>
+
+<h3 id="request-withdrawal-to-cold-wallet">Request withdrawal to cold wallet</h3>
+<p><img alt="label: POST" src="https://img.shields.io/badge/-POST-blue.svg" />  <em>/eth/withdraw/?token={token}</em></p>
+<p><img alt="label: POST" src="https://img.shields.io/badge/-POST-blue.svg" />  <em>/eth/withdraw/{callback_url}/?token={token}</em></p>
+<p>Request withdrawal to cold wallet (You configure it in your cabinet)</p>
+<p><strong>Examples:</strong> </p>
+<ul>
+<li>Without callback: </li>
+</ul>
+<p>https://api.yopay.tech/eth/withdraw/?token=WKt2skCsqns6666666666CJv0m4DUkX</p>
+<ul>
+<li>With callback: </li>
+</ul>
+<p>https://api.yopay.tech/eth/withdraw/http%3A%2F%2Fexample.com%2Fcb.php/?token=WKt2skCsqns6666666666CJv0m4DUkX</p>
+<p><strong>Headers:</strong> Content-Type: application/json</p>
+<p><strong>Parameters:</strong>
+ - token - API Secret Key
+- callback_url - Your server callback url (urlencoded) to get information about withdrawal</p>
+<p><strong>Request body:</strong></p>
+<pre><code class="json">{
+ &quot;address&quot;: &quot;0xf75574f061cd66666666666666666666666666f2&quot;,
+ &quot;amount&quot;: &quot;0.02&quot;
+}
+</code></pre>
+
+<p><strong>Response body:</strong></p>
+<pre><code class="json">{
+    &quot;success&quot;: true,
+    &quot;data&quot;: &quot;Transaction sent&quot;,
+    &quot;id&quot;: &quot;5b5666666666666666662ed21&quot;
+}
+</code></pre>
+
+<p><strong>Callback example:</strong></p>
+<pre><code class="json">{
+  &quot;withdrawal&quot;: {
+    &quot;txid&quot;: &quot;0x8e81cc436666666666666666643801d8f98d4d093c1e5381c031eb55048f92ed&quot;,
+    &quot;address&quot;: &quot;0xf75574f061cd66666666666666666666666666f2&quot;,
+    &quot;blockchain&quot;: &quot;eth&quot;,
+    &quot;amount&quot;: &quot;0.33&quot;,
+    &quot;callback&quot;: &quot;http:/example.com/cb.php&quot;,
+    &quot;status&quot;: &quot;complete&quot;,
+    &quot;created&quot;: &quot;2018-07-23T12:35:35.394Z&quot;,
+    &quot;id&quot;: &quot;5b55cbb7566666666689fcdb&quot;
+  }
+}
+</code></pre>
+
+<h3 id="retrieve-withdrawal-details">Retrieve withdrawal details</h3>
+<p><img alt="label: GET" src="https://img.shields.io/badge/-GET-success.svg" />  <em>/withdraw/{withdraw}/?token={token}</em></p>
+<p><strong>Example:</strong> https://api.yopay.tech/withdraw/5b13c41166666fff666666e7/?token=WKt2skCsqns6666666666CJv0m4DUkX</p>
+<p><strong>Headers:</strong> Content-Type: application/json</p>
+<p><strong>Response body:</strong></p>
+<pre><code class="json">{
+    &quot;success&quot;: true,
+    &quot;data&quot;: {
+        &quot;txid&quot;: &quot;0x8e81cc436666666666666666643801d8f98d4d093c1e5381c031eb55048f92ed&quot;,
+        &quot;address&quot;: &quot;0xf75574f061cd66666666666666666666666666f2&quot;,
+        &quot;blockchain&quot;: &quot;eth&quot;,
+        &quot;amount&quot;: &quot;0.33&quot;,
+        &quot;callback&quot;: &quot;http:/example.com/cb.php&quot;,
+        &quot;status&quot;: &quot;complete&quot;,
+        &quot;created&quot;: &quot;2018-07-23T12:35:35.394Z&quot;,
+        &quot;id&quot;: &quot;5b55cbb7566666666689fcdb&quot;
+      }
+    }
+</code></pre>
+
+<p>Before usage:
+Open settings and populate password and upload you json file
+toggle api access on</p>
+
+            </div>
+          </div>
+          <footer>
+
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+
+
+        <a href=".." class="btn btn-neutral" title="Introduction"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+
+    </div>
+
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+
+
+        <span><a href=".." style="color: #fcfcfc;">&laquo; Previous</a></span>
+
+
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+
+</body>
+</html>
